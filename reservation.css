@@ -1,0 +1,1328 @@
+
+/* =========================================================
+   MODULE 2: RESERVATION PAGE
+   File: assets/css/reservation.css
+
+   Main features:
+   1. Hero section and library statistics
+   2. Space filters and space cards
+   3. Reservation dialog
+   4. Date and time slot selection
+   5. Live clock
+   6. Interactive seat map
+   7. Responsive design and animations
+========================================================= */
+
+
+/* =========================================================
+   1. HERO SECTION
+   Displays the page introduction and library statistics.
+========================================================= */
+
+.hero {
+    background:
+        linear-gradient(
+            rgba(16, 28, 56, .78),
+            rgba(16, 28, 56, .9)
+        ),
+        url(../img/hero.jpg) center / cover,
+        url(../img/hero.svg) center / cover,
+        var(--ink);
+
+    color: #fff;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    justify-items: stretch;
+    gap: 1.5rem 3rem;
+
+    padding: 3.5rem var(--px) 3rem;
+    text-align: left;
+}
+
+/* Organize the hero text, breadcrumb, and statistics. */
+.hero > .hl {
+    display: grid;
+    gap: 1.1rem;
+    justify-items: center;
+    text-align: center;
+    animation: none;
+}
+
+/* Main heading in the hero section. */
+.hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    margin: 0;
+}
+
+/* Hero description text. */
+.hero p {
+    max-width: 34rem;
+    margin: 0 auto;
+    color: #cdd3e1;
+    font-size: 1.1rem;
+}
+
+/* Breadcrumb navigation above the heading. */
+.crumb {
+    color: #cdd3e1;
+    font-size: .95rem;
+}
+
+.crumb a {
+    text-decoration: none;
+}
+
+.crumb b {
+    color: #fff;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   2. LIBRARY STATISTICS
+   Displays total seats, floors, spaces, and opening hours.
+========================================================= */
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    margin: .8rem 0 0;
+    padding: 0;
+    border: 0;
+}
+
+/* Individual statistic cards. */
+.hero .stats div {
+    min-width: 150px;
+    padding: 1rem 1.4rem;
+
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(6px);
+}
+
+/* Large statistic numbers. */
+.stats dt {
+    font: 600 2.3rem / 1.1 Newsreader, serif;
+}
+
+/* Labels underneath the numbers. */
+.stats dd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+
+    margin: 0;
+    color: #cdd3e1;
+    font-size: .9rem;
+}
+
+
+/* =========================================================
+   3. MAIN PAGE LAYOUT
+   Separates the filter sidebar from the space cards.
+========================================================= */
+
+.wrap {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 1.5rem;
+
+    max-width: none;
+    margin: 0;
+    padding: 2rem var(--px);
+}
+
+
+/* =========================================================
+   4. SPACE FILTER SIDEBAR
+   Contains filters for floor, sound, capacity, booking,
+   and intended purpose.
+========================================================= */
+
+.filters {
+    display: grid;
+    gap: .9rem;
+    align-self: start;
+
+    position: sticky;
+    top: 5rem;
+
+    padding: 1.3rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+}
+
+/* Filter heading. */
+.filters h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* Number of spaces matching the selected filters. */
+.count {
+    margin: 0 0 1rem;
+    color: var(--mute);
+}
+
+
+/* =========================================================
+   5. STUDY SPACE GRID AND CARDS
+   Automatically adjusts the number of cards per row.
+========================================================= */
+
+/* Responsive grid for the study space cards. */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(260px, 1fr)
+    );
+    gap: 1.3rem;
+}
+
+/* Individual study space card. */
+.card {
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+}
+
+/* Hide cards that do not match the selected filters. */
+.card[hidden] {
+    display: none;
+}
+
+/* Add a subtle shadow when the user hovers over a card. */
+.card:hover {
+    box-shadow: 0 12px 30px rgba(20, 33, 61, .1);
+}
+
+
+/* =========================================================
+   6. SPACE CARD IMAGES
+   Maintains consistent image proportions.
+========================================================= */
+
+.ph {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    aspect-ratio: 16 / 10;
+
+    background: linear-gradient(
+        135deg,
+        #e9ecf3,
+        #d6dbe8
+    );
+
+    color: var(--mute);
+    font-size: .85rem;
+}
+
+/* Make uploaded images fill the image container. */
+.ph img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   7. SOUND LEVEL BADGES
+   Different border colors identify each sound level.
+========================================================= */
+
+.tag {
+    position: absolute;
+    top: .7rem;
+    left: .7rem;
+
+    padding: .2rem .6rem;
+
+    background: #fff;
+    color: var(--ink);
+
+    border-left: 4px solid var(--mute);
+    border-radius: 99px;
+
+    font-size: .78rem;
+}
+
+/* Silent study spaces. */
+.tag.silent {
+    border-color: var(--red);
+}
+
+/* Quiet study spaces. */
+.tag.quiet {
+    border-color: #c98a1b;
+}
+
+/* Collaborative study spaces. */
+.tag.collaborative {
+    border-color: var(--ok);
+}
+
+
+/* =========================================================
+   8. SPACE CARD DETAILS
+   Displays the name, description, floor, and capacity.
+========================================================= */
+
+.cb {
+    display: grid;
+    align-content: start;
+    gap: .4rem;
+    flex: 1;
+
+    padding: 1.1rem;
+}
+
+/* Study space name. */
+.cb h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+/* Space description and general information. */
+.cb p {
+    margin: 0;
+    color: var(--mute);
+    font-size: .92rem;
+}
+
+/* Floor and seating capacity information. */
+.cb .meta {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+/* Align the reservation button with the card content. */
+.cb .btn,
+.walk {
+    justify-self: start;
+    margin-top: .5rem;
+}
+
+/* Label shown for spaces that do not accept reservations. */
+.walk {
+    color: var(--mute);
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+/* Message shown when no spaces match the filters. */
+.empty {
+    padding: 3rem;
+    color: var(--mute);
+    text-align: center;
+}
+
+/* Optional section heading used elsewhere on the page. */
+.sec {
+    margin: 3rem 0 1rem;
+    font-size: 1.7rem;
+}
+
+
+/* =========================================================
+   9. RESERVATION DIALOG
+   Controls the pop-up used to book a study space.
+========================================================= */
+
+/* General dialog appearance. */
+dialog {
+    width: min(440px, 92vw);
+    padding: 0;
+
+    border: 0;
+    border-radius: 18px;
+
+    box-shadow: 0 30px 80px rgba(20, 33, 61, .35);
+}
+
+/* Dark overlay behind the open dialog. */
+dialog::backdrop {
+    background: rgba(20, 33, 61, .55);
+}
+
+/* Main dialog form layout. */
+dialog form {
+    display: grid;
+    gap: 1rem;
+    padding: 1.6rem;
+}
+
+/* Remove the default heading margin. */
+dialog h2 {
+    margin: 0;
+}
+
+
+/* =========================================================
+   10. DIALOG HEADER
+   Displays the selected space name and close button.
+========================================================= */
+
+.mh {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1.1rem 1.5rem;
+
+    background: var(--ink);
+    color: #fff;
+}
+
+/* Small label above the dialog heading. */
+.mh small {
+    color: #aab3c8;
+}
+
+/* Dialog heading. */
+.mh h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+/* Close button in the dialog header. */
+.xb {
+    width: 36px;
+    height: 36px;
+
+    background: rgba(255, 255, 255, .12);
+    border: 0;
+    border-radius: 10px;
+
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   11. DIALOG CONTENT LAYOUT
+   Separates space information from booking controls.
+========================================================= */
+
+/* Wider dialog for the complete reservation interface. */
+#dlg {
+    width: min(960px, 94vw);
+    max-height: 92vh;
+}
+
+/* Keep the dialog form within the available height. */
+#dlg form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0;
+    max-height: 92vh;
+    padding: 0;
+}
+
+/* Main content scrolls when it exceeds the dialog height. */
+.mb {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+
+    overflow: auto;
+    flex: 1;
+}
+
+
+/* =========================================================
+   12. SELECTED SPACE INFORMATION PANEL
+   Displays the image, floor, capacity, sound, and facilities.
+========================================================= */
+
+.ml {
+    align-self: start;
+
+    padding: 1.3rem;
+
+    background: #fafbfd;
+    border-right: 1px solid var(--line);
+}
+
+/* Image container inside the reservation dialog. */
+.mimg {
+    display: grid;
+    place-items: center;
+
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+
+    margin-bottom: 1rem;
+
+    background: linear-gradient(
+        135deg,
+        #e9ecf3,
+        #d6dbe8
+    );
+
+    border-radius: 12px;
+
+    color: var(--mute);
+    font-size: .85rem;
+}
+
+/* Make the selected space image fill its container. */
+.mimg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Align space information labels and values. */
+.ml dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .55rem 1rem;
+
+    margin: 0;
+    font-size: .92rem;
+}
+
+/* Information labels. */
+.ml dt {
+    font-weight: 600;
+}
+
+/* Information values. */
+.ml dd {
+    margin: 0;
+    color: var(--mute);
+}
+
+
+/* =========================================================
+   13. BOOKING FORM CONTENT
+   Arranges the date, seats, student details, and purpose.
+========================================================= */
+
+.mr {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+
+    padding: 1.3rem 1.5rem;
+}
+
+/* Headings for the numbered booking steps. */
+.mr h3 {
+    display: flex;
+    align-items: center;
+
+    margin: .3rem 0 0;
+    font-size: 1.2rem;
+}
+
+/* Numbered circles beside each booking step. */
+.mr h3 b {
+    display: inline-grid;
+    place-items: center;
+
+    width: 1.7rem;
+    height: 1.7rem;
+    margin-right: .6rem;
+
+    background: var(--red);
+    border-radius: 50%;
+
+    color: #fff;
+    font: 600 .9rem Figtree, sans-serif;
+}
+
+/* Labels above the available time slots. */
+.lbl {
+    margin: 0;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+/* Additional information and booking restrictions. */
+.note {
+    margin: 0;
+    padding: .6rem .9rem;
+
+    background: #f3f4f8;
+    border-radius: 9px;
+
+    color: var(--mute);
+    font-size: .85rem;
+}
+
+/* Display related form fields side by side. */
+.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   14. BOOKING TIME SLOT BUTTONS
+   Shows available, selected, and unavailable hours.
+========================================================= */
+
+/* Arrange time slots into four columns. */
+.slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+}
+
+/* Default appearance of a time slot. */
+.slots button {
+    display: grid;
+    gap: .1rem;
+
+    padding: .7rem .3rem;
+
+    background: #eaf5f1;
+    border: 1px solid #bfe0d4;
+    border-radius: 9px;
+
+    color: var(--ink);
+    cursor: pointer;
+
+    font: 500 .85rem Figtree, sans-serif;
+}
+
+/* Smaller labels displayed inside time slot buttons. */
+.slots button small {
+    color: var(--ok);
+    font-size: .7rem;
+}
+
+/* Highlight the selected time slot. */
+.slots button.on {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+}
+
+/* Keep the selected slot label readable. */
+.slots button.on small {
+    color: #cdd3e1;
+}
+
+/* Indicate reserved or unavailable time slots. */
+.slots button.res {
+    background: #fbeaea;
+    border-color: #f0c4c4;
+}
+
+/* Use the red accent for reserved slot labels. */
+.slots button.res small {
+    color: var(--red);
+}
+
+/* General disabled state for time slot buttons. */
+.slots button:disabled {
+    text-decoration: none;
+    cursor: not-allowed;
+}
+
+/* Style unavailable slots that are not marked as reserved. */
+.slots button:disabled:not(.res) {
+    background: #f0f1f5;
+    border-color: var(--line);
+    color: #aab;
+}
+
+/* Make disabled slot labels less prominent. */
+.slots button:disabled:not(.res) small {
+    color: #99a;
+}
+
+
+/* =========================================================
+   15. SELECTED SEAT SUMMARY
+   Displays the seats selected by the student.
+========================================================= */
+
+.pickline {
+    margin: 0;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   16. DIALOG FOOTER
+   Contains Cancel and Confirm Reservation buttons.
+========================================================= */
+
+.mf {
+    display: flex;
+    gap: .8rem;
+
+    padding: 1rem 1.5rem;
+
+    background: #fff;
+    border-top: 1px solid var(--line);
+}
+
+/* Allow the main confirmation button to fill remaining space. */
+.mf .btn:last-child {
+    flex: 1;
+}
+
+
+/* =========================================================
+   17. LIVE CLOCK
+   Styles the clock card displayed in the hero section.
+========================================================= */
+
+/* Hide the regular navigation clock on the reservation page. */
+body.home .nav .clock {
+    display: none;
+}
+
+/* Clock card positioned beside the hero content. */
+.hero > .hclock {
+    display: grid;
+    justify-items: center;
+    gap: .9rem;
+
+    justify-self: end;
+    width: min(340px, 100%);
+
+    padding: 1.5rem 1.3rem;
+
+    background: rgba(10, 14, 28, .5);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 22px;
+
+    backdrop-filter: blur(8px);
+    text-align: center;
+
+    animation-delay: .3s;
+}
+
+/* Greeting or heading displayed above the clock. */
+.hcg {
+    font: 700 1.1rem Figtree, sans-serif;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+
+/* Responsive size of the analog clock. */
+.hca {
+    width: min(190px, 60vw);
+    height: auto;
+}
+
+/* Clock face. */
+.hcf {
+    fill: rgba(0, 0, 0, .25);
+    stroke: #fff;
+    stroke-width: 2;
+}
+
+/* Major and minor clock markings, if generated by JavaScript. */
+.hca .maj {
+    stroke: #fff;
+    stroke-width: 2;
+}
+
+.hca .min {
+    stroke: rgba(255, 255, 255, .4);
+    stroke-width: 1;
+}
+
+/* Numbers on the analog clock. */
+.hca text {
+    fill: #fff;
+    font: 600 13px Figtree, sans-serif;
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+/* Round the ends of the clock hands. */
+.hch,
+.hcm,
+.hcs {
+    stroke-linecap: round;
+}
+
+/* Hour hand. */
+.hch {
+    stroke: #fff;
+    stroke-width: 5;
+}
+
+/* Minute hand. */
+.hcm {
+    stroke: #fff;
+    stroke-width: 3.5;
+}
+
+/* Second hand. */
+.hcs {
+    stroke: #ff4d4f;
+    stroke-width: 2;
+}
+
+/* Date displayed below the analog clock. */
+.hcd {
+    font: 600 1rem Figtree, sans-serif;
+}
+
+/* Digital time display. */
+.hct {
+    font: 700 clamp(2rem, 3vw, 2.7rem) / 1 Figtree, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+}
+
+/* Smaller AM/PM text inside the digital clock. */
+.hct small {
+    font-size: .5em;
+    font-weight: 600;
+}
+
+/* Library opening-status indicator. */
+.hco {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+
+    color: #cdd3e1;
+    font-size: .82rem;
+}
+
+/* Default status indicator. */
+.hco::before {
+    content: '';
+
+    width: 8px;
+    height: 8px;
+
+    background: #aab;
+    border-radius: 50%;
+}
+
+/* Green indicator when the library is open. */
+.hco[data-open="true"]::before {
+    background: #4cc38a;
+}
+
+/* Red indicator when the library is closed. */
+.hco[data-open="false"]::before {
+    background: #ff6b6b;
+}
+
+
+/* =========================================================
+   18. HERO AND CARD ANIMATIONS
+   Adds entrance effects to the page elements.
+========================================================= */
+
+/* Move elements upward as they appear. */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+}
+
+/* Animate hero elements when the page loads. */
+.hero > * {
+    animation: rise .7s both;
+}
+
+/* Stagger the hero text animations. */
+.hl > * {
+    animation: rise .7s both;
+}
+
+.hl > :nth-child(2) {
+    animation-delay: .1s;
+}
+
+.hl > :nth-child(3) {
+    animation-delay: .2s;
+}
+
+.hl > :nth-child(4) {
+    animation-delay: .35s;
+}
+
+/* Initial state of cards animated by JavaScript. */
+.card.rv {
+    opacity: 0;
+    transform: translateY(14px);
+}
+
+/* Visible state of animated cards. */
+.card.rv.in {
+    opacity: 1;
+    transform: none;
+    transition: opacity .5s, transform .5s;
+}
+
+/* Scale and fade the reservation dialog when opened. */
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: scale(.96) translateY(10px);
+    }
+}
+
+#dlg[open],
+#okdlg[open] {
+    animation: pop .25s;
+}
+
+
+/* =========================================================
+   19. SEAT MAP CONTAINER
+   Provides the background and horizontal scrolling area.
+========================================================= */
+
+.smap {
+    overflow-x: auto;
+    padding: .9rem;
+
+    background: #f6f7fa;
+    border-radius: 14px;
+}
+
+/* Label for the desk or front area of the room. */
+.desk {
+    margin-bottom: .7rem;
+    padding: .35rem;
+
+    background: #dfe5e4;
+    border-radius: 6px;
+
+    color: #4d5a6e;
+    text-align: center;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+}
+
+
+/* =========================================================
+   20. SEAT ROWS AND AISLES
+   Organizes seats into rows within the seat map.
+========================================================= */
+
+/* Align the row label and seats. */
+.srow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    margin: .28rem 0;
+}
+
+/* Row label. */
+.srow > b {
+    width: 1.2rem;
+    color: var(--mute);
+    font-size: .72rem;
+}
+
+/* Group seats within a row. */
+.srow > div {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+}
+
+/* Empty space between seat groups. */
+.aisle {
+    width: 1.3rem;
+}
+
+
+/* =========================================================
+   21. INDIVIDUAL SEAT BUTTONS
+   Shows available, selected, and unavailable seats.
+========================================================= */
+
+/* Default appearance of an available seat. */
+.seat {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+
+    background: #61988e;
+    border: 0;
+    border-radius: 50%;
+
+    color: #14231f;
+    cursor: pointer;
+
+    font: 600 .62rem Figtree, sans-serif;
+    transition: transform .15s;
+}
+
+/* Slightly enlarge available seats on hover. */
+.seat:hover:not(:disabled) {
+    transform: scale(1.18);
+}
+
+/* Highlight a seat selected by the student. */
+.seat.on {
+    background: var(--red);
+    color: #fff;
+}
+
+/* Show unavailable seats in a muted style. */
+.seat.x {
+    background: #c9d1d0;
+    color: #8a9594;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   22. SEAT AVAILABILITY LEGEND
+   Explains the colors used in the seat map.
+========================================================= */
+
+.leg {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-top: .8rem;
+    color: var(--mute);
+    font-size: .78rem;
+}
+
+/* Align each legend label and its seat indicator. */
+.leg span {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+/* Smaller seat indicators inside the legend. */
+.leg .seat {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: default;
+}
+
+
+/* =========================================================
+   23. SEAT LAYOUT FOR DIFFERENT SPACE TYPES
+   Provides layout containers for desks, tables, sofas,
+   laboratories, and individual study pods.
+========================================================= */
+
+/* Flexible container for different seating arrangements. */
+.tgrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .9rem;
+}
+
+/* Two-dimensional table seating arrangement. */
+.tbl2 {
+    display: grid;
+    justify-items: center;
+    gap: .3rem;
+
+    padding: .6rem;
+
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+/* Seats positioned beside a table. */
+.tside {
+    display: flex;
+    gap: .3rem;
+    min-height: 26px;
+}
+
+/* Table name or label. */
+.tname {
+    width: 100%;
+    padding: .35rem 1rem;
+
+    background: #e4c9ad;
+    border-radius: 8px;
+
+    color: #5a3516;
+    text-align: center;
+
+    font: 600 .68rem Figtree, sans-serif;
+    letter-spacing: .1em;
+}
+
+
+/* =========================================================
+   24. SOFA SEATING ARRANGEMENT
+   Groups sofa seats together with a descriptive label.
+========================================================= */
+
+.sofa {
+    display: grid;
+    justify-items: center;
+    gap: .25rem;
+
+    padding: .5rem .6rem;
+
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+/* Arrange the individual sofa seats in a group. */
+.sofa > div {
+    display: flex;
+    gap: .25rem;
+
+    padding: .4rem .5rem;
+
+    background: #e7ddf2;
+    border-radius: 12px;
+}
+
+/* Supporting label beneath the sofa arrangement. */
+.sofa small {
+    color: var(--mute);
+    font-size: .68rem;
+}
+
+
+/* =========================================================
+   25. SEAT SHAPES FOR DIFFERENT SPACE TYPES
+   Adjusts the shape and size according to the seat type.
+========================================================= */
+
+/* Desk and table seats use rounded-square shapes. */
+.seat.k-desks,
+.seat.k-table,
+.seat.k-tables {
+    border-radius: 7px;
+}
+
+/* Sofa seats are wider than standard seats. */
+.seat.k-sofa {
+    width: 32px;
+    border-radius: 10px;
+}
+
+/* Laboratory seats have a rectangular shape and top border. */
+.seat.k-lab {
+    width: 30px;
+    height: 26px;
+
+    border-radius: 4px;
+    border-top: 6px solid #2d3047;
+}
+
+/* Individual study pods use wider rounded seats. */
+.seat.k-pods {
+    width: 42px;
+    height: 34px;
+
+    border-radius: 12px;
+    font-size: .74rem;
+}
+
+
+/* =========================================================
+   26. RESPONSIVE DESIGN
+   Adapts the page to tablets and mobile screens.
+========================================================= */
+
+/* Tablet layout and smaller screens. */
+@media (max-width: 860px) {
+
+    /* Place the filter sidebar above the space grid. */
+    .wrap {
+        grid-template-columns: 1fr;
+    }
+
+    /* Remove the sticky sidebar behavior. */
+    .filters {
+        position: static;
+    }
+
+    /* Stack the hero content and clock vertically. */
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    /* Center the clock on smaller screens. */
+    .hero > .hclock {
+        justify-self: center;
+    }
+
+    /* Stack space information above booking controls. */
+    .mb {
+        grid-template-columns: 1fr;
+    }
+
+    /* Remove the side divider from the space information panel. */
+    .ml {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    /* Stack student detail fields vertically. */
+    .two {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   27. ACCESSIBILITY: REDUCED MOTION
+   Respects users who prefer fewer animations.
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    /* Disable entrance animations. */
+    .hero > *,
+    .hl > *,
+    #dlg[open],
+    #okdlg[open] {
+        animation: none;
+    }
+
+    /* Keep animated cards visible without movement. */
+    .card.rv {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* =========================================================
+   28. BOOKING CONFIRMATION POP-UP
+   Shown after a reservation has been saved successfully.
+   The dialog itself uses the shared "dialog" styles above.
+========================================================= */
+
+/* Tick icon and heading inside the header. */
+.okt {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+}
+
+/* Green circle behind the tick. */
+.okic {
+    display: grid;
+    place-items: center;
+    flex: none;
+
+    width: 44px;
+    height: 44px;
+
+    background: var(--ok);
+    border-radius: 50%;
+}
+
+.okic svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Content area of the confirmation pop-up. */
+.okb {
+    padding: 1.4rem 1.5rem .6rem;
+}
+
+/* Booking reference badge (uses the same green as available slots). */
+.okid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    margin: 0 0 .6rem;
+    padding: .65rem .95rem;
+
+    background: #eaf5f1;
+    border: 1px solid #bfe0d4;
+    border-radius: 9px;
+
+    color: var(--ok);
+    font-size: .85rem;
+}
+
+.okid b {
+    color: var(--ink);
+    font-size: 1.05rem;
+    letter-spacing: .04em;
+}
+
+/* Booking details list. */
+.okl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    margin: 0;
+}
+
+.okl dt,
+.okl dd {
+    padding: .75rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.okl dt {
+    padding-right: 1.2rem;
+    color: var(--mute);
+    font-size: .85rem;
+}
+
+.okl dd {
+    margin: 0;
+    color: var(--ink);
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+/* No divider under the last row. */
+.okl dt:last-of-type,
+.okl dd:last-of-type {
+    border-bottom: 0;
+}
+
+/* Make the dashboard link look and fill like the main button. */
+.mf a.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
