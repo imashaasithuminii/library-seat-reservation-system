@@ -1,0 +1,16 @@
+/* MODULE 4: Admin console (admin.php) */
+.admin{display:grid;grid-template-columns:240px 1fr;min-height:100vh;background:#eef0f5}
+.side{background:var(--ink);color:#fff;padding:1.5rem;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2rem}
+.side .brand{flex-direction:column;align-items:flex-start;gap:.2rem}
+.side small{font:400 .8rem Figtree;color:#aab3c8}
+.side nav{display:grid;gap:.3rem}
+.side nav a{padding:.6rem .8rem;border-radius:9px;text-decoration:none;color:#d8dce8}
+.side nav a:hover{background:rgba(255,255,255,.1)}
+.adm{padding:2rem 3vw;display:grid;gap:1.2rem;align-content:start;min-width:0}
+.adm h1{margin:0}
+.adm h2{margin:1.5rem 0 0}
+.thumb{width:56px;height:36px;object-fit:cover;border-radius:6px}
+.acts{display:flex;gap:1rem}
+@media(max-width:860px){.admin{grid-template-columns:1fr}.side{position:static;height:auto}}
+.side .clock{color:#aab3c8}
+.search{max-width:380px;background:#fff}

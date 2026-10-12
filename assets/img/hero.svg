@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 800" preserveAspectRatio="xMidYMid slice"><defs>
+<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fa9cf"/><stop offset="1" stop-color="#e3ebf5"/></linearGradient>
+<pattern id="w" width="50" height="124" patternUnits="userSpaceOnUse"><rect width="50" height="124" fill="#cfd8e4"/><rect x="8" y="10" width="34" height="38" fill="#5b7396"/><rect x="8" y="10" width="34" height="13" fill="#8aa2c2"/><rect x="8" y="72" width="34" height="38" fill="#5b7396"/><rect x="8" y="72" width="34" height="13" fill="#8aa2c2"/><rect y="110" width="50" height="14" fill="#3f6b4a"/><rect y="48" width="50" height="6" fill="#b9c5d6"/></pattern></defs>
+<rect width="1920" height="800" fill="url(#s)"/>
+<rect x="520" y="40" width="700" height="780" fill="url(#w)" opacity=".85"/><rect x="60" y="150" width="520" height="670" fill="url(#w)"/><rect x="1150" y="190" width="720" height="630" fill="url(#w)"/>
+<rect x="760" y="640" width="360" height="160" fill="#2d3f5e"/><rect x="800" y="680" width="280" height="120" fill="#7f97ba"/>
+<g fill="#2f5a3c"><circle cx="120" cy="790" r="90"/><circle cx="330" cy="810" r="80"/><circle cx="640" cy="800" r="70"/><circle cx="1260" cy="800" r="85"/><circle cx="1520" cy="810" r="90"/><circle cx="1790" cy="795" r="80"/></g></svg>

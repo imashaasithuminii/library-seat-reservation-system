@@ -1,0 +1,86 @@
+/* MODULE 1: Login / Register (login.php) - loads after base.css */
+[hidden]{display:none!important}
+.auth{display:grid;grid-template-columns:1.05fr 1fr;min-height:100vh}
+
+/* ---------- Left art panel ---------- */
+.auth-art{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(20,33,61,.93),rgba(127,17,20,.86)),url(../img/login.jpg) center/cover,var(--ink);color:#fff;padding:2.5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
+.auth-art>*{position:relative;z-index:1}
+.auth-art::before,.auth-art::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.06);animation:drift 14s ease-in-out infinite alternate}
+.auth-art::before{width:380px;height:380px;top:-120px;right:-120px}
+.auth-art::after{width:260px;height:260px;bottom:-80px;left:-60px;animation-delay:-6s}
+@keyframes drift{to{transform:translate(-26px,30px) scale(1.08)}}
+.auth-art h1{font-size:clamp(2.2rem,4vw,3rem);line-height:1.1;margin:0 0 .8rem}
+.auth-art p{color:#d8dce8;max-width:27rem;margin:0}
+.perks{list-style:none;margin:1.8rem 0 0;padding:0;display:grid;gap:.9rem}
+.perks li{display:flex;align-items:center;gap:.8rem;color:#eef0f7;opacity:0;animation:rise .6s forwards}
+.perks li:nth-child(2){animation-delay:.15s}.perks li:nth-child(3){animation-delay:.3s}
+.perks span{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.14);flex:none;transition:transform .25s,background .25s}
+.perks li:hover span{transform:scale(1.1) rotate(-6deg);background:rgba(255,255,255,.24)}
+.perks svg,.inp>svg,.eye svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.perks svg{width:20px;height:20px}
+.tip{border-left:3px solid rgba(255,255,255,.35);padding:.2rem 0 .2rem 1rem;color:#e6e9f2;font:500 1.05rem/1.45 Newsreader,Georgia,serif;min-height:3.4rem;transition:opacity .4s}
+.tip.out{opacity:0}
+
+/* ---------- Right form side ---------- */
+.auth-form{display:grid;place-items:center;padding:2rem min(6vw,4rem);background:radial-gradient(circle at 80% 0,#fff,transparent 55%),var(--paper)}
+.card{width:min(100%,450px);background:#fff;border:1px solid var(--line);border-radius:20px;padding:1.6rem;box-shadow:0 20px 50px rgba(20,33,61,.08);display:grid;gap:1.1rem}
+.card.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.card form{display:grid;gap:.9rem}
+
+/* sliding tab indicator */
+.tabs{position:relative;display:grid;grid-template-columns:repeat(3,1fr);background:#e9ecf3;padding:.3rem;border-radius:12px}
+.tabs i{position:absolute;top:.3rem;bottom:.3rem;left:.3rem;width:calc((100% - .6rem)/3);background:#fff;border-radius:9px;box-shadow:0 1px 4px rgba(0,0,0,.12);transform:translateX(calc(var(--i,0)*100%));transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.tabs button{position:relative;z-index:1;border:0;background:none;padding:.55rem .3rem;border-radius:9px;font:500 .9rem Figtree,sans-serif;color:var(--mute);cursor:pointer;transition:color .2s}
+.tabs button.on{color:var(--red);font-weight:600}
+.head h2{margin:0;font-size:1.7rem}.head p{margin:.2rem 0 0;color:var(--mute);font-size:.93rem}
+.head.swap{animation:rise .4s}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* mode-specific rows */
+.only-register,.only-admin{display:none}
+body[data-m=register] .only-register{display:grid;animation:rise .35s}
+body[data-m=admin] .only-admin{display:block}
+body[data-m=register] .only-login{display:none}
+
+/* fields */
+.fld{display:grid;gap:.3rem}
+.fld label{display:block;font-weight:500;font-size:.88rem}
+.inp{position:relative;display:flex;align-items:center}
+.inp>svg{position:absolute;left:.8rem;width:18px;height:18px;color:var(--mute);pointer-events:none;transition:color .2s}
+.inp:focus-within>svg{color:var(--red)}
+.inp input{padding:.72rem .8rem .72rem 2.6rem;transition:border-color .2s,box-shadow .2s}
+.inp.pw input{padding-right:2.9rem}
+.inp input:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 4px rgba(164,22,26,.12)}
+.fld.bad input{border-color:var(--red)}.fld.good input{border-color:var(--ok)}
+.fm{min-height:1.1em;font-size:.8rem;color:var(--red)}.fld.good .fm{color:var(--ok)}
+.caps{font-size:.8rem;color:#9a5b00;background:#fff4de;border-radius:8px;padding:.2rem .6rem;width:max-content}
+.eye{position:absolute;right:.35rem;width:34px;height:34px;border:0;background:none;border-radius:8px;cursor:pointer;display:grid;place-items:center;color:var(--mute)}
+.eye:hover{background:var(--paper);color:var(--ink)}
+.eye svg{width:19px;height:19px}.eye .slash{display:none}.eye.on .slash{display:block}.eye.on{color:var(--red)}
+
+/* password strength */
+.strength{gap:.45rem}
+.meter{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.meter i{height:5px;border-radius:9px;background:#e5e8ef;transition:background .3s}
+.meter[data-s="1"] i:nth-child(-n+1){background:#d64550}
+.meter[data-s="2"] i:nth-child(-n+2){background:#e08a2e}
+.meter[data-s="3"] i:nth-child(-n+3){background:#c9b02a}
+.meter[data-s="4"] i{background:var(--ok)}
+.sl{margin:0;font-size:.82rem;color:var(--mute)}
+.rules{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.25rem .9rem;font-size:.78rem;color:var(--mute)}
+.rules li::before{content:'○ '}.rules li.ok{color:var(--ok)}.rules li.ok::before{content:'● '}
+
+/* button, hints, links */
+.btn.full{width:100%;padding:.85rem;font-size:1rem}
+.btn.load{pointer-events:none;opacity:.9}
+.btn.load::after{content:'';display:inline-block;width:.9em;height:.9em;margin-left:.6rem;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint{color:var(--mute);font-size:.85rem;margin:0}
+.alt{margin:0;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.9rem;color:var(--mute)}
+.alt span{display:none}
+body[data-m=student] .a-student,body[data-m=register] .a-register,body[data-m=admin] .a-admin{display:inline}
+.alt a{color:var(--red);font-weight:600;text-decoration:none;margin-left:auto}.alt a:hover{text-decoration:underline}
+
+@media(max-width:860px){.auth{grid-template-columns:1fr}.auth-art{padding:1.4rem 1.6rem;gap:.6rem}.auth-art .perks,.auth-art .tip,.auth-art p{display:none}.auth-art h1{font-size:1.6rem;margin:0}.auth-form{padding:1.5rem 1rem 2.5rem}}
+@media(prefers-reduced-motion:reduce){.auth-art::before,.auth-art::after,.perks li,.card.shake,.head.swap,body[data-m=register] .only-register{animation:none!important}.perks li{opacity:1}}
